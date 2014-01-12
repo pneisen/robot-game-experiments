@@ -15,5 +15,10 @@ class Robot:
                     else:
                         return ['attack', loc]
 
-        # move toward the center
-        return ['move', rg.toward(self.location, rg.CENTER_POINT)]
+        # move toward the center if we are not blocked. If we are, guard.
+        moveToPoint = rg.toward(self.location, rg.CENTER_POINT)
+
+        if 'obstical' in rg.loc_types(moveToPoint):
+            return ['guard']
+        else:
+            return ['move', moveToPoint]
